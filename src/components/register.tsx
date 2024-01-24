@@ -1,6 +1,6 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form'
-import {FormControl} from '@ma'
+import { Button, FormControl, FormHelperText, Input, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import './demo.css'
 interface FormField {
     firstName: string;
@@ -39,11 +39,82 @@ const Register = () => {
 
                 <input type="submit" />
             </form> */}
-            <FormControl>
-                <InputLabel htmlFor="my-input">Email address</InputLabel>
-                <Input id="my-input" aria-describedby="my-helper-text" />
-                <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-            </FormControl>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <TextField
+                    {...register('firstName', { required: true })}
+                    label="First name"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                />
+                <TextField
+                    {...register('lastName', { required: true })}
+                    label="Last name"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                />
+                <TextField
+                    {...register('email', { pattern: /^\S+@\S+$/i, required: 'Email is required' })}
+                    label="Email"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                />
+                {errors.email && (
+                    <Typography variant="body2" color="error">
+                        {errors.email.message}
+                    </Typography>
+                )}
+                <TextField
+                    {...register('password', { required: 'Password is required' })}
+                    label="Password"
+                    type="password"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                />
+                {errors.password && (
+                    <Typography variant="body2" color="error">
+                        {errors.password.message}
+                    </Typography>
+                )}
+                <TextField
+                    {...register('mobile', { required: true })}
+                    label="Mobile number"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                />
+                <FormControl variant="outlined" margin="normal" fullWidth>
+                    <InputLabel>Title</InputLabel>
+                    <Select {...register('title', { required: true })} label="Title">
+                        <MenuItem value="Mr">Mr</MenuItem>
+                        <MenuItem value="Mrs">Mrs</MenuItem>
+                        <MenuItem value="Miss">Miss</MenuItem>
+                        <MenuItem value="Dr">Dr</MenuItem>
+                    </Select>
+                </FormControl>
+                <div>
+                    <Typography variant="subtitle1">Are you a developer?</Typography>
+                    <input
+                        {...register('developer', { required: true })}
+                        type="radio"
+                        value="Yes"
+                    />
+                    Yes
+                    <input
+                        {...register('developer', { required: true })}
+                        type="radio"
+                        value="No"
+                    />
+                    No
+                </div>
+                <Button type="submit" variant="contained" color="primary" fullWidth>
+                    Submit
+                </Button>
+            </form>
+           
         </div>
     )
 }
