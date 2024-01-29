@@ -1,16 +1,13 @@
 import './App.css';
-import { useSelector, useDispatch } from 'react-redux';
-import Counter  from '../src/components/Counter'
-import Demo from '../src/components/demo'
-import Register from './components/register'
+import TodoList from './features/todos/TodoList';
+
+
 function App() {
-  
-  
+
+
   return (
-    <div>
-      <Register/>
-      
-    </div>
+    
+    <TodoList/>
   );
 }
 

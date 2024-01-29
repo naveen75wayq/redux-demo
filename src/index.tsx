@@ -4,16 +4,20 @@ import './index.css';
 import App from './App';
 
 import { Provider } from 'react-redux';
+import { ApiProvider } from '@reduxjs/toolkit/query/react';
+import { apiSlice } from './features/api/apiSlice';
 import {store} from './store/store'
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <Provider store={store}>
+  <ApiProvider api={apiSlice}>
+    <Provider store={store}>
     <React.StrictMode>
     <App />
   </React.StrictMode>
   </Provider>
+  </ApiProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
