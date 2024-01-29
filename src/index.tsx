@@ -6,18 +6,28 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
 import { apiSlice } from './features/api/apiSlice';
-import {store} from './store/store'
+import { store } from './store/store'
+import { extendedApiSlice } from './features/posts/postSlice';
+import { userApiSlice } from './features/users/userSlice';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(extendedApiSlice.endpoints.getPosts.initiate({}));
+store.dispatch(userApiSlice.endpoints.getUsers.initiate({}));
+
 root.render(
-  <ApiProvider api={apiSlice}>
+  <React.StrictMode>
     <Provider store={store}>
-    <React.StrictMode>
-    <App />
+      <Router>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </Router>
+    </Provider>
   </React.StrictMode>
-  </Provider>
-  </ApiProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
